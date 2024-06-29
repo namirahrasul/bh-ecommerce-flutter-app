@@ -1,11 +1,11 @@
-class ProductResponse<T> {
+class CommonResponse<T> {
   final T data;
 
-  ProductResponse({required this.data});
+  CommonResponse({required this.data});
 
-  factory ProductResponse.fromJson(dynamic json, T data,
+  factory CommonResponse.fromJson(dynamic json, T data,
           {Function(dynamic json)? fixture}) =>
-      ProductResponse(
+      CommonResponse(
         data: data,
       );
   @override

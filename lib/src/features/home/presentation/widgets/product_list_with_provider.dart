@@ -69,36 +69,20 @@ class _DashboardScreenState extends ConsumerState<ProductListWidget> {
               backgroundColor: Colors.white,
             ))
           : state.hasData
-              ? SizedBox(
-                  height: 600,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView.separated(
-                    // shrinkWrap: true,
-                    itemBuilder: (ctx, i) {
-                      print(i);
-                      return ProductCard(
-                          news: state.productResp.data!.products![i]);
-                      // return ListTile(
-                      //   dense: false,
-                      //   visualDensity: VisualDensity.compact,
-                      //   contentPadding: const EdgeInsets.symmetric(
-                      //       vertical: 0, horizontal: 8),
-                      //   onTap: () async {
-                      //     print(state.productResp.data?.products?[i].name);
-
-                      //     // print(GoRouterState.of(context).matchedLocation);
-                      //     // Navigator.of(ctx).pop();
-                      //   },
-                      //   trailing: const Icon(Icons.chevron_right_outlined),
-                      //   title: Text(
-                      //       state.productResp.data?.products?[i].name ?? ""),
-                      // );
-                    },
-                    separatorBuilder: (context, index) => const Divider(
-                      thickness: .05,
-                    ),
-                    itemCount: state.productResp.data?.products?.length ?? 0,
-                  ))
+              ? GridView.builder(
+                  itemCount: state.productResp.data?.products?.length ?? 0,
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
+                    childAspectRatio: 0.5,
+                  ),
+                  itemBuilder: (ctx, i) {
+                    return ProductCard(
+                        news: state.productResp.data!.products![i]);
+                  })
               : Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 22.0),
@@ -137,16 +121,24 @@ class ProductCard extends StatelessWidget {
       margin: const EdgeInsets.only(top: 12),
       child: Column(
         children: [
-          if (news.image?.isNotEmpty == true)
-            Padding(
+          //if (news.image?.isNotEmpty == true)
+          Flexible(
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Image(
                 image: NetworkImage(news.image ?? ""),
                 errorBuilder: (context, error, stackTrace) {
-                  return Container();
+                  return Center(
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text("No image available"),
+                    ),
+                  );
                 },
               ),
             ),
+          ),
+
           Padding(
             padding: const EdgeInsets.only(left: 16, top: 8),
             child: DefaultTextStyle(
@@ -176,6 +168,8 @@ class ProductCard extends StatelessWidget {
                   .textTheme
                   .bodyLarge
                   ?.copyWith(fontWeight: FontWeight.bold),
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
             ),
             // horizontalTitleGap: 8,
 
@@ -184,7 +178,7 @@ class ProductCard extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodySmall
-                  ?.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+                  ?.copyWith(color: Colors.black, fontWeight: FontWeight.w600),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),

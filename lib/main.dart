@@ -8,4 +8,5 @@ void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(ProviderScope(child: const MyApp()));
+  FlutterNativeSplash.remove();
 }

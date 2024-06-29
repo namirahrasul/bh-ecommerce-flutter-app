@@ -1,10 +1,10 @@
-import 'package:batter_high/src/features/home/presentation/widgets/product_list_with_provider.dart';
+import '../widgets/product_list_with_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
-import '../widgets/category_list.dart';
+import '../widgets/category_list_with_providers.dart';
 import '../widgets/custom_title.dart';
+import '../widgets/slider_widgets.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -81,12 +81,12 @@ class _MyHomePageState extends State<MyHomePage> {
           SliverToBoxAdapter(
             child: SizedBox(
               height: 100,
-              child: CategoryList(categoryList: categoryList),
+              //child: CategoryList(categoryList: categoryList),
             ),
           ),
-          // const SliverToBoxAdapter(
-          //   child: SliderWidgets(),
-          // ),
+          const SliverToBoxAdapter(
+            child: SliderWidgets(),
+          ),
           const SliverToBoxAdapter(
             child: CustomTitle(
               title: "Products",

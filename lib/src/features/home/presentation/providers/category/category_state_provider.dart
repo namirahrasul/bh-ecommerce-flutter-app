@@ -1,14 +1,15 @@
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'product_providers.dart';
-import 'state/product_notifier.dart';
-import 'state/product_state.dart';
 
-final productNotifierProvider =
-    StateNotifierProvider<ProductNotifier, ProductState>((ref) {
-  final repository = ref.watch(productRepositoryProvider);
-  print("step 1");
-  return ProductNotifier(repository)..fetchProducts(category: "category");
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'category_providers.dart';
+import 'state/category_notifier.dart';
+import 'state/category_state.dart';
+
+final categoryNotifierProvider =
+    StateNotifierProvider<CategoryNotifier, CategoryState>((ref) {
+  final repository = ref.watch(categoryRepositoryProvider);
+  return CategoryNotifier(repository)..fetchCategories(category: "category");
 });
 // final categoryEconomyNotifierProvider =
 //     StateNotifierProvider<CategoryWiseNewsNotifier, CategoryWiseNewsState>(

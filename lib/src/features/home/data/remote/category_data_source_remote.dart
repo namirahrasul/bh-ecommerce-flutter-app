@@ -3,24 +3,23 @@ import 'dart:convert';
 import '../../../../core/shared/data/remote/remote.dart';
 import '../../../../core/shared/domain/models/either.dart';
 
-import '../../../../core/shared/domain/models/product_response.dart';
+import '../../../../core/shared/domain/models/common_response.dart';
 import '../../../../core/shared/exceptions/app_exceptions.dart';
 
-import '../../domain/model/product_list_response/product_list_response.dart';
 
-abstract class ProductDataSource {
-  Future<Either<AppException, ProductResponse>> fetchProducts(
+abstract class CategoryDataSource {
+  Future<Either<AppException, CommonResponse>> fetchCategories(
       {String local = "en", required String category});
   // Future<Either<AppException, PaginatedResponse>> searchPaginatedProducts(
   //     {required int skip, required String query});
 }
 
-class ProductRemoteDataSource extends ProductDataSource {
+class CategoryRemoteDataSource extends CategoryDataSource {
   final NetworkService networkService;
-  ProductRemoteDataSource(this.networkService);
+  CategoryRemoteDataSource(this.networkService);
 
   @override
-  Future<Either<AppException, ProductResponse>> fetchProducts(
+  Future<Either<AppException, CommonResponse>> fetchCategories(
       {String local = "en", required String category}) async {
     final response = await networkService.get(
       'products/get-all-products',
@@ -43,7 +42,7 @@ class ProductRemoteDataSource extends ProductDataSource {
         print("########################");
         print(r.data);
 
-        final paginatedResponse = ProductResponse.fromJson(
+        final paginatedResponse = CommonResponse.fromJson(
             jsonData, jsonDecode(jsonEncode(jsonData)));
         return Right(paginatedResponse);
       },

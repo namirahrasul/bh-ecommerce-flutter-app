@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:batter_high/src/core/shared/domain/models/product_response.dart';
-import 'package:batter_high/src/features/home/domain/repositories/product_repository.dart';
+import '../../../../../../core/shared/domain/models/common_response.dart';
+import '../../../../domain/repositories/product_repository.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -58,7 +58,7 @@ class ProductNotifier extends StateNotifier<ProductState> {
   // }
 
   void updateStateFromResponse(
-      Either<AppException, ProductResponse<dynamic>> response) {
+      Either<AppException, CommonResponse<dynamic>> response) {
     response.fold((failure) {
       state = state.copyWith(
         status: ProductStatus.failure,
